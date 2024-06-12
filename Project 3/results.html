@@ -1,0 +1,73 @@
+<!-- <!DOCTYPE html>
+<html>
+   <head>
+      <title>lux.com</title>
+   </head>
+   <body>
+      <h1>Lux Search Results</h1>
+      {% if results_table|length == 0: %}
+            No objects found.
+      {% else %}
+         <table>
+            {% for line in results_table %}
+            <TR>
+               <TD class="c1">{{line}}</TD>
+               <TD class="c2">{{line.date}}</TD>
+               <TD class="c3">{{line.classifier}}</TD>
+               <TD class="c4"><SPAN>{{line.date}}</SPAN></TD>
+            </TR>
+            {% endfor %}
+         </table>
+      {% endif %}
+      <br>
+      <br>
+      Click here to do another
+      <a href="searchform">search</a>.
+      <br>
+      <br>
+
+   </body>
+</html> -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JSON to HTML Table</title>
+</head>
+<body>
+    <h1>JSON to HTML Table</h1>
+    <div id="table-container"></div>
+
+    <script>
+        // Make an AJAX request to get the JSON data
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '/get_json_data', true);
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                var jsonData = JSON.parse(xhr.responseText);
+
+                // Create an HTML table
+                var table = '<table border="1"><thead><tr>';
+                table += '<th>ID</th><th>Name</th><th>Age</th><th>City</th>';
+                table += '</tr></thead><tbody>';
+
+                for (var i = 0; i < jsonData.length; i++) {
+                    table += '<tr>';
+                    table += '<td>' + jsonData[i].ID + '</td>';
+                    table += '<td>' + jsonData[i].Name + '</td>';
+                    table += '<td>' + jsonData[i].Age + '</td>';
+                    table += '<td>' + jsonData[i].City + '</td>';
+                    table += '</tr>';
+                }
+
+                table += '</tbody></table>';
+
+                // Display the table in the container
+                document.getElementById('table-container').innerHTML = table;
+            }
+        };
+        xhr.send();
+    </script>
+</body>
+</html>
+
